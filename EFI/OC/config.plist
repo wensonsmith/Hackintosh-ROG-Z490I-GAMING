@@ -247,7 +247,7 @@
 	<dict>
 		<key>Add</key>
 		<dict>
-			<key>PciRoot(0x0)/Pci(0x1b,0x0)</key>
+			<key>PciRoot(0x0)/Pci(0x1f,0x3)</key>
 			<dict>
 				<key>layout-id</key>
 				<data>AQAAAA==</data>
@@ -727,32 +727,32 @@
 				<integer>0</integer>
 			</dict>
 			<dict>
-			    <key>Base</key>
-			    <string></string>
-			    <key>Comment</key>
-			    <string>F1 Startup patch</string>
-			    <key>Count</key>
-			    <integer>1</integer>
-			    <key>Enabled</key>
-			    <true/>
-			    <key>Find</key>
-			    <data>dTMPtw==</data>
-			    <key>Identifier</key>
-			    <string>com.apple.driver.AppleRTC</string>
-			    <key>Limit</key>
-			    <integer>0</integer>
-			    <key>Mask</key>
-			    <data></data>
-			    <key>MaxKernel</key>
-			    <string></string>
-			    <key>MinKernel</key>
-			    <string></string>
-			    <key>Replace</key>
-			    <data>6zMPtw==</data>
-			    <key>ReplaceMask</key>
-			    <data></data>
-			    <key>Skip</key>
-			    <integer>0</integer>
+				<key>Base</key>
+				<string></string>
+				<key>Comment</key>
+				<string>F1 Startup patch</string>
+				<key>Count</key>
+				<integer>1</integer>
+				<key>Enabled</key>
+				<true/>
+				<key>Find</key>
+				<data>dTMPtw==</data>
+				<key>Identifier</key>
+				<string>com.apple.driver.AppleRTC</string>
+				<key>Limit</key>
+				<integer>0</integer>
+				<key>Mask</key>
+				<data></data>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string></string>
+				<key>Replace</key>
+				<data>6zMPtw==</data>
+				<key>ReplaceMask</key>
+				<data></data>
+				<key>Skip</key>
+				<integer>0</integer>
 			</dict>
 		</array>
 		<key>Quirks</key>
