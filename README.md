@@ -5,55 +5,59 @@
 [![MODEL](https://img.shields.io/badge/Model-Z490I-blue)](https://www.asus.com/Motherboards/ROG-STRIX-Z490-I-GAMING/)
 [![BIOS](https://img.shields.io/badge/BIOS-0707-brightgreen)](#)
 
-This repository is for Hackintosh builds with the **Asus ROG Strix Z490-I Gaming** motherboard using Intel's 10th Gen processors (Comet Lake). 
+本项目适用于 **华硕 ROG Z490I Gaming** 主板和 **Intel 十代 CPU**  （Comet Labke）。
 
-Everything in terms of the hardware used in this build is working as expected.
+由于没有使用苹果兼容的 BCM 系列网卡，所以不会有 Airdrop 和 Handoff。
 
-Anyone who has the same motherboard can use the EFI of this repository. 
+该 EFI 可以直接使用板载的 CNVI网卡和蓝牙，WIFI可连接但不稳定，Bluetooth 工作正常， MagicMouse 2 和 Airpods Pro 都可以正常使用。
 
-Don’t forget to edit the `EFI/OC/config.plist` file and to generate your own SMBIOS info. See: [Comet Lake Config Guide](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html#platforminfo) for detailed instructions on how to do that. 
+⚠️ 请先熟读 [OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/) 然后再动手。
 
-I highly recommended that you read the [OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/) before you get started.
+不要忘记修改 `EFI/OC/config.plist` 生成自己的 SMBIOS 信息. 请参阅: [Comet Lake Config Guide](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html#platforminfo)
 
-## Hardware
 
-* **Motherboard:** [Asus ROG Strix Z490-I Gaming](https://www.asus.com/Motherboards/ROG-STRIX-Z490-I-GAMING/)
+## 硬件
+
+* **主板:** [Asus ROG Strix Z490-I Gaming](https://www.asus.com/Motherboards/ROG-STRIX-Z490-I-GAMING/)
     * **Ethernet:** Intel I225-V 2.5Gbit
-    * **Wi-Fi/BT:** Intel AX201NGW (can used in macOS)
+    * **Wi-Fi/BT:** Intel AX201NGW
     * **Audio:** Realtek ALCS1220A
 * **CPU:** [Intel Core i7-10700K](https://ark.intel.com/content/www/us/en/ark/products/199335/intel-core-i7-10700k-processor-16m-cache-up-to-5-10-ghz.html)
-* **GPU:** Intel UHD630 (integrated)
-* **RAM:** [G.SKILL Trident Z Neo DDR4-3200MHz 32GB(16GB×2)](https://www.gskill.com/product/165/326/1562838932/F4-3200C16D-32GTZNTrident-Z-NeoDDR4-3200MHz-CL16-18-18-38-1.35V32GB-(2x16GB))
-* **SSD:** [WD-Black SN750 500GB M.2 NVMe](https://shop.westerndigital.com/products/internal-drives/wd-black-sn750-nvme-ssd#WDS250G3X0C)
+* **显卡:** Intel UHD630 (集成显卡)
+* **内存:** [G.SKILL Trident Z Neo DDR4-3200MHz 32GB(16GB×2)](https://www.gskill.com/product/165/326/1562838932/F4-3200C16D-32GTZNTrident-Z-NeoDDR4-3200MHz-CL16-18-18-38-1.35V32GB-(2x16GB))
+* **硬盘:** [WD-Black SN750 500GB M.2 NVMe](https://shop.westerndigital.com/products/internal-drives/wd-black-sn750-nvme-ssd#WDS250G3X0C)
 * **WIFI/BT:** Onboard CNVI Intel AX201NGW
 
-## Software
+## 软件
 
-* Bootloader: OpenCore 0.6.6-RELEASE
+* OpenCore: 0.6.6-RELEASE
 * OS: macOS Big Sur 11.2 (20D64)
 
-## What's working
-
+## 可用
 - [x] Intel UHD630 (iGPU)
-- [x] Audio Realtek ALCS1220A
-- [x] Intel I225-V 2.5Gb Ethernet
-- [x] Wi-Fi, only works after restart
-- [x] BT
+- [x] Audio Realtek ALCS1220A 声卡
+- [x] Intel I225-V 2.5Gb 有线网卡
+- [x] Wi-Fi, 重启后可以连接上
+- [x] 蓝牙
 - [x] USB
-- [x] Restart/Shutdown
-- [ ] Sleep/Wake
-- [x] Power Management (Native support)
+- [x] 重启/关机
+- [ ] 休眠： 由于休眠后 HDMI 无法唤醒，所以禁止了休眠
+- [x] 电源管理
+- [x] 系统升级
 
-## Details
-DeviceProperties: 
+## 详情
+设备属性: 
+
 ![device properties](./Screenshots/device-properties.png)
 
-### GPU
+### 显卡
 #### Intel UHD630
 
-HDMI/DP display and audio outputs are all working.
+HDMI/DP 音视频输出正常.
 
-Working with:
+修改配置:
+
+> AAPL,ig-platform-id=07009B3E
 
 ```xml
 <key>PciRoot(0x0)/Pci(0x2,0x0)</key>
@@ -67,14 +71,13 @@ Working with:
 </dict>
 ```
 
-### Audio
+### 音频
 
-Working with:
-
+需要 Kext:
 * AppleALC.kext
-* layout-id=01000000
 
-DeviceProperties: 
+修改配置:
+> layout-id=01000000
 
 ```xml
 <key>PciRoot(0x0)/Pci(0x1f,0x3)</key>
@@ -84,15 +87,15 @@ DeviceProperties:
 </dict>
 ```
 
-### Ethernet 
+### 有限网卡 
 
-Working with:
+需要 Kext:
 
 * FakePCIID.kext
 * FakePCIID_Intel_I225-V.kext
-* device-id=`F2150000`
 
-DeviceProperties: 
+修改配置：
+> device-id=`F2150000`
 
 ```xml
 <key>PciRoot(0x0)/Pci(0x1C,0x4)/Pci(0x0,0x0)</key>
@@ -102,28 +105,56 @@ DeviceProperties:
 </dict>
 ```
 
-`FakePCIID_Intel_I225-V.kext` is from **jergoo**'s repository, details in issue [2.5Gbit Ethernet (Intel I225-V) Don't work #8](https://github.com/SchmockLord/Hackintosh-Intel-i9-10900k-Gigabyte-Z490-Vision-D/issues/8).
+`FakePCIID_Intel_I225-V.kext` 可以参考 [2.5Gbit Ethernet (Intel I225-V) Don't work #8](https://github.com/SchmockLord/Hackintosh-Intel-i9-10900k-Gigabyte-Z490-Vision-D/issues/8).
 
 ### Wi-Fi/BT
+由于主板自带 CNVI 的网卡，这个接口不可以替换为 BCM 的兼容网卡（例如BCM94360NG 是不能用的，因为CNVI协议问题），如果要用兼容网卡需要占用一个 m.2 接口。而我是 Windows 和 Hackintosh 各一个硬盘，所以就无法用兼容网卡。
 
-Thanks to [IntelBluetoothFirmware](https://github.com/OpenIntelWireless/IntelBluetoothFirmware) , the onboard wireless network card (Intel AX201NGW) can works without AirDrop & Handoff. 
+好在使用 [IntelBluetoothFirmware](https://github.com/OpenIntelWireless/IntelBluetoothFirmware) ，板载的 CNVi 网卡和蓝牙可以直接使用了。 我的三个蓝牙设备 MagicMouse 、Airpods Pro 和 Flico 圣手二代都工作正常.
 
-For me, my Magic Mouse and Airpods pro works fine, it's enough.
+所需Kext:
+* IntelBluetoothFirmware.kext
+* IntelBluetoothInjector.kext
+* AirportItIWm.kext
 
-> The onboard wireless network card (Intel AX201NGW) uses the m.2 E-Key slot and CNVi protocol. Replacing the card with the BCM94360NG does not work due to the CNVi protocol, so don't even bother trying.
+### USB
 
-### Sleep/Wake
+![board usb](./Screenshots/usb-onboard.png)
 
-Works with DP output and power button. GPRW Patch is used to disable the USB device instant wake.
+![usb rear](./Screenshots/usb-rear.png)
 
-**Known issues:**
-1. Bluetooth has a delay of about 7 seconds after the display is turned on.
-2. When using HDMI, the display cannot be woken up.
-3. Without enabling GPRW, a keyboard press or mouse click can wake up the display as well, but a second press or click is needed when the light is on, I tried to fix it by following [Keyboard Wake Issues Guide](https://dortania.github.io/USB-Map-Guide/misc/keyboard.html), but didn't work. So my choice is to just use the power button, disable `SSDT-GPRW` if you want to use a keyboard or mouse to wake up.
+| No. | 类型 | 端口 |
+|-----|------|------|
+| 1   | USB 2.0 | HS12 |
+| 2   | USB 2.0 | HS13 |
+| 3   | USB 3.2 Gen 1 | HS09/SS09 |
+| 4   | USB 3.2 Gen 1 | HS10/SS10 |
+| 5   | USB 3.2 Gen 2 | HS05/SS05 |
+| 6   | USB 3.2 Gen 2 | HS06/SS06 |
+| 7   | USB 3.2 Gen 2 | HS03/SS03 |
+| 8   | USB 3.2 Gen 2 | HS04/SS04 |
+| 9   | USB 2.0 Hub | HS11 |
+| 10  | USB 3.2 Gen 2 | HS01/SS01 |
+| 11  | USB 3.2 Gen 1 | HS07/SS07 + HS08/SS08 |
 
-### F1 Boot Error
+> 所有端口: HS01 ~ HS14, SS01 ~ SS10, USR1 ~ USR2
+>
+> HS02: AURA LED 控制器 /  HS14: 板载蓝牙
+>
+> SS04, HS01/SS01, HS07/SS07, HS08/SS08 未知.
 
-Add patch to `Kernel -> Patch`:
+需要注意的是，板载蓝牙对应的 `HS14` 要进行映射，不然蓝牙无法进行使用。由于 15 个 USB 限制，所以这里放弃了编号 2 的USB口，即 HS13.
+
+所需 Kext:
+* USBPorts.kext
+
+![usb-mapping](./Screenshots/usb-mapping.png)
+
+### 休眠 (未完成)
+
+### F1 启动错误
+
+修改配置文件，在 `Kernel -> Patch` 加入以下配置:
 
 ```xml
 <dict>
@@ -156,21 +187,21 @@ Add patch to `Kernel -> Patch`:
 </dict>
 ```
 
-### BIOS Settings
+### BIOS 版本
 
 > Version: 0707
 
-#### ❌ Disable
+#### ❌ 禁用项
 
 * Fast Boot
 * VT-d
 * CSM
 * Intel SGX
-* CFG Lock (no option in BIOS, Asus Z490 motherboards are factory unlocked. The `AppleCpuPmCfgLock` and `AppleXcpmCfgLock` quirks are not necessary)
+* CFG Lock ( BIOS 中不存在, 默认是 unlocked. 所以 `AppleCpuPmCfgLock` 和 `AppleXcpmCfgLock` 设置可以不用处理)
 
-#### ✅ Enable
+#### ✅ 启用项
 
-* VT-x (no option in BIOS, it's enabled by default)
+* VT-x (BIOS里没有这项，默认是开启的，需要注意有一项XXX需要启用！不然虚拟机统统无法使用)
 * Above 4G decoding
 * Hyper-Threading
 * EHCI/XHCI Hand-off
@@ -181,17 +212,16 @@ Add patch to `Kernel -> Patch`:
 
 #### SSDTs
 
-Compiled by following the [Dortania's ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/), the `.dls` SSDT files can be found in SSDTS folder. 
+参照 [Dortania's ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/), 使用SSDTTime，超级方便！
 
 * DSDT.aml
 * SSDT-EC.aml
 * SSDT-PLUG.aml
 * SSDT-AWAC.aml
+* SSDT-USBX.aml
 * SSDT-USB-RESET.aml
 
 #### Kexts
-
-All kexts with a version tag are downloaded from original repositories.
 
 * AirportItlwm `1.2.0`
 * VirtualSMC.kext `1.2.0`
@@ -201,41 +231,31 @@ All kexts with a version tag are downloaded from original repositories.
 * WhateverGreen.kext `1.4.7`
 * AppleALC.kext `1.5.1`
 * NVMeFix.kext `1.0.5`
+* IntelBluetoothFirmware.kext `1.1.2`
+* IntelBluetoothInjector.kext `1.1.2`
 * FakePCIID.kext (from RehabMan `2018-1027`)
 * FakePCIID_intel_I225-V.kext (from SchmockLord)
+* USBPorts.kext
 
-## Misc
+## 其他
 
-### Installation
+### 所需工具
 
-The installation guide in the [OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/) are quite clear and easy, so there will be no detailed installation tutorials here. Give it some patience and you can build your own EFI.
+* [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 生成 SMBIOS 信息
+* [Hackintool](https://github.com/headkaze/Hackintool) 黑苹果必备工具
+* [MaciASL](https://github.com/acidanthera/MaciASL) 编译 SSDTs
+* [MountEFI](https://github.com/corpnewt/MountEFI) 加载 EFI 分区
+* [ProperTree](https://github.com/corpnewt/ProperTree) 修改 plist 文件
+* [SSDTTime](https://github.com/corpnewt/SSDTTime) 自动生成 DSDT
 
-### Required Tools/Utilities
-
-* [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) for generating SMBIOS info
-* [Hackintool](https://github.com/headkaze/Hackintool) for a lot of things
-* [MaciASL](https://github.com/acidanthera/MaciASL) for compiling SSDTs
-* [MountEFI](https://github.com/corpnewt/MountEFI) for mounting EFI system partition
-* [ProperTree](https://github.com/corpnewt/ProperTree) for editing plist file
-* [SSDTTime](https://github.com/corpnewt/SSDTTime) for dumping DSDT
-
-<!-- TODO -->
-<!-- ### Benchmarks
-
-| Item | Score |
-|---|---|
-| CPU - Geekbench | [Single / Multi-Core](https://browser.geekbench.com/v5/cpu/2750529): 1218 / 8909 |
-| Intel UHD630 - Geekbench | [OpenCL](https://browser.geekbench.com/v5/compute/1092240) / [Metal](https://browser.geekbench.com/v5/compute/1120839): 4826 / 4790 |
-| AMD Vega 64 - Geekbench | [OpenCL](https://browser.geekbench.com/v5/compute/1121010) / [Metal](https://browser.geekbench.com/v5/compute/1121020): 75925 / 85089 | -->
-
-### Screenshots
+### 截图
 Geekbench CPU:
 ![Geekbench CPU](./Screenshots/geekbench-cpu.png)
 
 Geekbench GPU:
 ![Geekbench CPU](./Screenshots/geekbench-gpu.png)
 
-## Credits
+## 参考
 
 * Acidanthera for [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)
 * Dortania for [OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/)
