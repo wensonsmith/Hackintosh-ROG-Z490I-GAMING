@@ -201,7 +201,7 @@ HDMI/DP 音视频输出正常.
 
 #### ✅ 启用项
 
-* VT-x (BIOS里没有这项，默认是开启的，需要注意有一项XXX需要启用！不然虚拟机统统无法使用)
+* VT-x (BIOS里没有这项，默认是开启的，需要注意Intel (VMX) Virtualization Technology 需要启用！不然虚拟机统统无法使用)
 * Above 4G decoding
 * Hyper-Threading
 * EHCI/XHCI Hand-off
