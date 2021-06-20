@@ -145,7 +145,7 @@ HDMI/DP 音视频输出正常.
 
 需要注意的是，板载蓝牙对应的 `HS14` 要进行映射，不然蓝牙无法进行使用。由于 15 个 USB 限制，所以这里放弃了编号 2 的USB口，即 HS13.
 
-所需 Kext:
+使用工具[https://github.com/corpnewt/USBMap](USBMap), 参考 [Intel Mapping 说明](https://dortania.github.io/OpenCore-Post-Install/usb/intel-mapping/intel.html#Intel-usb-mapping) 生成所需 Kext:
 * USBPorts.kext
 
 ![usb-mapping](./Screenshots/usb-mapping.png)
