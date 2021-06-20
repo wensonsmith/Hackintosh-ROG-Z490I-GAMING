@@ -30,8 +30,8 @@
 
 ## 软件
 
-* OpenCore: 0.6.6-RELEASE
-* OS: macOS Big Sur 11.2 (20D64)
+* OpenCore: 0.7.0-RELEASE
+* OS: macOS Big Sur 11.4 (20F71)
 
 ## 可用
 - [x] Intel UHD630 (iGPU)
@@ -223,16 +223,16 @@ HDMI/DP 音视频输出正常.
 
 #### Kexts
 
-* AirportItlwm `1.2.0`
-* VirtualSMC.kext `1.2.0`
-* SMCProcessor.kext `1.2.0`
-* SMCSuperIO.kext `1.2.0`
-* Lilu.kext `1.5.1`
-* WhateverGreen.kext `1.4.7`
-* AppleALC.kext `1.5.1`
-* NVMeFix.kext `1.0.5`
-* IntelBluetoothFirmware.kext `1.1.2`
-* IntelBluetoothInjector.kext `1.1.2`
+* AirportItlwm `1.3.0`
+* VirtualSMC.kext `1.2.4`
+* SMCProcessor.kext `1.2.4`
+* SMCSuperIO.kext `1.2.4`
+* Lilu.kext `1.5.3`
+* WhateverGreen.kext `1.5.0`
+* AppleALC.kext `1.6.1`
+* NVMeFix.kext `1.0.8`
+* IntelBluetoothFirmware.kext `1.1.3`
+* IntelBluetoothInjector.kext `1.1.3`
 * FakePCIID.kext (from RehabMan `2018-1027`)
 * FakePCIID_intel_I225-V.kext (from SchmockLord)
 * USBPorts.kext
