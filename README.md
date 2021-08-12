@@ -1,6 +1,6 @@
 # Hackintosh - Asus ROG Strix Z490-I Gaming (OpenCore)
 
-[![OpenCore](https://img.shields.io/badge/OpenCore-0.6.6-yellowgreen)](https://github.com/acidanthera/OpenCorePkg/releases/tag/0.6.6)
+[![OpenCore](https://img.shields.io/badge/OpenCore-0.7.0-yellowgreen)](https://github.com/acidanthera/OpenCorePkg/releases/tag/0.7.0)
 [![macOS](https://img.shields.io/badge/macOS-11.2-orange)](https://www.apple.com/macos/big-sur/)
 [![MODEL](https://img.shields.io/badge/Model-Z490I-blue)](https://www.asus.com/Motherboards/ROG-STRIX-Z490-I-GAMING/)
 [![BIOS](https://img.shields.io/badge/BIOS-0707-brightgreen)](#)
