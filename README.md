@@ -1,9 +1,9 @@
 # Hackintosh - Asus ROG Strix Z490-I Gaming (OpenCore)
 
-[![OpenCore](https://img.shields.io/badge/OpenCore-0.7.0-yellowgreen)](https://github.com/acidanthera/OpenCorePkg/releases/tag/0.7.0)
-[![macOS](https://img.shields.io/badge/macOS-11.4-orange)](https://www.apple.com/macos/big-sur/)
+[![OpenCore](https://img.shields.io/badge/OpenCore-0.7.5-yellowgreen)](https://github.com/acidanthera/OpenCorePkg/releases/tag/0.7.5)
+[![macOS](https://img.shields.io/badge/macOS-11.6-orange)](https://www.apple.com/macos/big-sur/)
 [![MODEL](https://img.shields.io/badge/Model-Z490I-blue)](https://www.asus.com/Motherboards/ROG-STRIX-Z490-I-GAMING/)
-[![BIOS](https://img.shields.io/badge/BIOS-0707-brightgreen)](#)
+[![BIOS](https://img.shields.io/badge/BIOS-2301-brightgreen)](#)
 
 本项目适用于 **华硕 ROG Z490I Gaming** 主板和 **Intel 十代 CPU**  （Comet Labke）。
 
@@ -30,8 +30,8 @@
 
 ## 软件
 
-* OpenCore: 0.7.0-RELEASE
-* OS: macOS Big Sur 11.4 (20F71)
+* OpenCore: 0.7.5-RELEASE
+* OS: macOS Big Sur 11.6
 
 ## 可用
 - [x] Intel UHD630 (iGPU)
@@ -53,7 +53,7 @@
 ### 显卡
 #### Intel UHD630
 
-HDMI/DP 音视频输出正常.
+HDMI/DP 音视频输出正常. 为了支持 4k， 需要删除 device properties - framebuffer-stolenmem
 
 修改配置:
 
@@ -123,30 +123,13 @@ HDMI/DP 音视频输出正常.
 
 ![usb rear](./Screenshots/usb-rear.png)
 
-| No. | 类型 | 端口 |
-|-----|------|------|
-| 1   | USB 2.0 | HS12 |
-| 2   | USB 2.0 | HS13 |
-| 3   | USB 3.2 Gen 1 | HS09/SS09 |
-| 4   | USB 3.2 Gen 1 | HS10/SS10 |
-| 5   | USB 3.2 Gen 2 | HS05/SS05 |
-| 6   | USB 3.2 Gen 2 | HS06/SS06 |
-| 7   | USB 3.2 Gen 2 | HS03/SS03 |
-| 8   | USB 3.2 Gen 2 | HS04/SS04 |
-| 9   | USB 2.0 Hub | HS11 |
-| 10  | USB 3.2 Gen 2 | HS01/SS01 |
-| 11  | USB 3.2 Gen 1 | HS07/SS07 + HS08/SS08 |
+使用USBMap, 第一步先Discovery, 这个阶段可以用U盘不断插拔来判断是哪个USB，然后记住这个USB是什么类型。
 
-> 所有端口: HS01 ~ HS14, SS01 ~ SS10, USR1 ~ USR2
->
-> HS02: AURA LED 控制器 /  HS14: 板载蓝牙
->
-> SS04, HS01/SS01, HS07/SS07, HS08/SS08 未知.
+第二步进行编辑，需要注意的是，板载蓝牙对应的 `HS14` 要进行映射，设置类型为 255，不然蓝牙无法进行使用。
 
-需要注意的是，板载蓝牙对应的 `HS14` 要进行映射，不然蓝牙无法进行使用。由于 15 个 USB 限制，所以这里放弃了编号 2 的USB口，即 HS13.
 
 使用工具[https://github.com/corpnewt/USBMap](USBMap), 参考 [Intel Mapping 说明](https://dortania.github.io/OpenCore-Post-Install/usb/intel-mapping/intel.html#Intel-usb-mapping) 生成所需 Kext:
-* USBPorts.kext
+* USBMap.kext
 
 ![usb-mapping](./Screenshots/usb-mapping.png)
 
@@ -189,7 +172,7 @@ HDMI/DP 音视频输出正常.
 
 ### BIOS 版本
 
-> Version: 0707
+> Version: 2301
 
 #### ❌ 禁用项
 
@@ -214,7 +197,6 @@ HDMI/DP 音视频输出正常.
 
 参照 [Dortania's ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/), 使用SSDTTime，超级方便！
 
-* DSDT.aml
 * SSDT-EC.aml
 * SSDT-PLUG.aml
 * SSDT-AWAC.aml
@@ -223,19 +205,19 @@ HDMI/DP 音视频输出正常.
 
 #### Kexts
 
-* AirportItlwm `1.3.0`
-* VirtualSMC.kext `1.2.4`
-* SMCProcessor.kext `1.2.4`
-* SMCSuperIO.kext `1.2.4`
-* Lilu.kext `1.5.3`
-* WhateverGreen.kext `1.5.0`
-* AppleALC.kext `1.6.1`
-* NVMeFix.kext `1.0.8`
-* IntelBluetoothFirmware.kext `1.1.3`
-* IntelBluetoothInjector.kext `1.1.3`
+* AirportItlwm `2.0.0`
+* VirtualSMC.kext `1.2.8`
+* SMCProcessor.kext `1.2.8`
+* SMCSuperIO.kext `1.2.8`
+* Lilu.kext `1.5.8`
+* WhateverGreen.kext `1.5.5`
+* AppleALC.kext `1.6.7`
+* NVMeFix.kext `1.0.9`
+* IntelBluetoothFirmware.kext `2.0.1`
+* IntelBluetoothInjector.kext `2.0.1`
 * FakePCIID.kext (from RehabMan `2018-1027`)
 * FakePCIID_intel_I225-V.kext (from SchmockLord)
-* USBPorts.kext
+* USBMap.kext
 
 ## 其他
 
